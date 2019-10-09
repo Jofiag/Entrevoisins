@@ -135,7 +135,7 @@
                 android:layout_marginTop="78dp"
                 android:layout_marginStart="10dp"
                 android:textSize="20sp"
-                android:text="@string/bonjour_je_souhaiterais_faire_de_la_marche_nordique"
+                android:text="@string/bonjour_je_souhaiterais_faire_de_la_marche_nordique" />
 
 
         </android.support.v7.widget.CardView>
