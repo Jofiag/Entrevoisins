@@ -58,7 +58,7 @@
                     android:layout_margin="20dp"
                     android:textSize="38sp"
                     android:textStyle="bold"
-                    android:text="@string/string" />
+                    android:text="@string/coraline" />
 
                 <ImageView
                     android:id="@+id/location_icon_imgv"
