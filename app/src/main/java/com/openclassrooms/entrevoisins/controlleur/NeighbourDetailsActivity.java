@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import
 
 public class NeighbourDetailsActivity extends AppCompatActivity
 {
@@ -18,12 +17,5 @@ public class NeighbourDetailsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_details);
-
-        mNeighbour = new Neighbour();
-
-        mImageView = findViewById(R.id.avatar);
-
-        Image avatarImage = new Image(mNeighbour.getAvatarUrl());
-
     }
 }
