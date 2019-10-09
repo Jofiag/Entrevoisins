@@ -2,14 +2,6 @@
     <string name="app_name">Entrevoisins</string>
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
-    <string name="saint_pierre_du_mot_5km">Saint pierre du mot à 5Km</string>
-    <string name="Coraline" />
-    <string name="string">Coraline</string>
-    <string name="coraline">Coraline</string>
-    <string name="_33_6_86_57_90_14">+33 6 86 57 90 14</string>
-    <string name="www_facebook_fr_caroline">www.facebook.fr/caroline</string>
-    <string name="a_propos_de_moi">A propos de moi</string>
-    <string name="bonjour">Bonjour</string>
-    <string name="bonjour_je_souhaiterais_faire_de_la_marche_nordique">Bonjour! Je souhaiterais faire de la marche nordique.</string>
-    <string name="coraline">Coraline</string>
+
+    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
 </resources>
