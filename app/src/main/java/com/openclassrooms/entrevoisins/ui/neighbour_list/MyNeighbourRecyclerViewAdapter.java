@@ -20,12 +20,11 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
@@ -61,13 +60,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         });
 
         //Lancement de NeighbourDetailsActivity
-        holder.mNeighbourLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent neighbourDetailsActivity = new Intent(holder.mNeighbourLayout.getContext(), NeighbourDetailsActivity.class);
-                neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, (Parcelable) neighbour);
-                v.getContext().startActivity(neighbourDetailsActivity);
-            }
+        holder.mNeighbourLayout.setOnClickListener(v -> {
+            Intent neighbourDetailsActivity = new Intent(holder.mNeighbourLayout.getContext(), NeighbourDetailsActivity.class);
+            neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, neighbour);
+            v.getContext().startActivity(neighbourDetailsActivity);
         });
     }
 
