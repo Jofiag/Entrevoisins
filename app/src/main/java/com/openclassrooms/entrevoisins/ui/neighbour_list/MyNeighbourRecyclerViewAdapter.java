@@ -31,6 +31,8 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
 
+    public static final String BUNDLE_NEIGHBOUR_SELECTED = "neighbour";
+
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours = items;
     }
@@ -63,7 +65,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             @Override
             public void onClick(View v) {
                 Intent neighbourDetailsActivity = new Intent(holder.mNeighbourLayout.getContext(), NeighbourDetailsActivity.class);
-                neighbourDetailsActivity.putExtra("neighbour", (Parcelable) neighbour);
+                neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, (Parcelable) neighbour);
                 v.getContext().startActivity(neighbourDetailsActivity);
             }
         });

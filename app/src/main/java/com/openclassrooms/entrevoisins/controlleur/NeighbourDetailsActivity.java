@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_NEIGHBOUR_SELECTED;
+
 public class NeighbourDetailsActivity extends AppCompatActivity
 {
     private ImageView mImageView;
@@ -31,6 +33,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_details);
 
+        //Référenciation
         mImageView = findViewById(R.id.neighbour_avatar_img);
         mBackButton = findViewById(R.id.back_button_btn);
         mNeighbourNameOnAvatar = findViewById(R.id.neighbour_name_in_avatar_txt);
@@ -40,5 +43,8 @@ public class NeighbourDetailsActivity extends AppCompatActivity
         mNeighbourPhoneNumber = findViewById(R.id.phone_number_txt);
         mNeighbourFacebook = findViewById(R.id.neighbour_web_txt);
         mNeighbourMoreAbout = findViewById(R.id.about_details_txt);
+
+        //Récupération du neighbour sélectionné
+        mNeighbour = getIntent().getParcelableExtra(BUNDLE_NEIGHBOUR_SELECTED);
     }
 }
