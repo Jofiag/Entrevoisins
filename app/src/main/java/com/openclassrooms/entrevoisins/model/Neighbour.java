@@ -3,12 +3,13 @@ package com.openclassrooms.entrevoisins.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Model object representing a Neighbour
  */
-public class Neighbour implements Parcelable
+public class Neighbour implements Serializable
 {
 
     /** Identifier */
@@ -20,17 +21,50 @@ public class Neighbour implements Parcelable
     /** Avatar */
     private String avatarUrl;
 
+    /** Favorite */
+    private boolean isFavorite;
+
     /**
      * Constructor
      * @param id
      * @param name
      * @param avatarUrl
      */
-    public Neighbour(Integer id, String name, String avatarUrl) {
+    public Neighbour(Integer id, String name, String avatarUrl, Boolean isFavorite) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
+        this.isFavorite = isFavorite;
     }
+
+    //Parcelable implementation
+    /*private Neighbour(Parcel in)
+    {
+        if (in.readByte() == 0)
+        {
+            id = null;
+        } else
+        {
+            id = in.readInt();
+        }
+        name = in.readString();
+        avatarUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<Neighbour> CREATOR = new Parcelable.Creator<Neighbour>()
+    {
+        @Override
+        public Neighbour createFromParcel(Parcel in)
+        {
+            return new Neighbour(in);
+        }
+
+        @Override
+        public Neighbour[] newArray(int size)
+        {
+            return new Neighbour[size];
+        }
+    };*/
 
     public Integer getId() {
         return id;
@@ -56,6 +90,10 @@ public class Neighbour implements Parcelable
         this.avatarUrl = avatarUrl;
     }
 
+    public boolean getIsFavorite() {return isFavorite;}
+
+    public void setIsFavorite(boolean isFavorite) {this.isFavorite = isFavorite;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,36 +107,9 @@ public class Neighbour implements Parcelable
         return Objects.hash(id);
     }
 
-    private Neighbour(Parcel in)
-    {
-        if (in.readByte() == 0)
-        {
-            id = null;
-        } else
-        {
-            id = in.readInt();
-        }
-        name = in.readString();
-        avatarUrl = in.readString();
-    }
 
-    /********** Parcelable needed **********/
-    public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>()
-    {
-        @Override
-        public Neighbour createFromParcel(Parcel in)
-        {
-            return new Neighbour(in);
-        }
 
-        @Override
-        public Neighbour[] newArray(int size)
-        {
-            return new Neighbour[size];
-        }
-    };
-
-    @Override
+    /*@Override
     public int describeContents() {return 0;}
 
     @Override
@@ -106,5 +117,5 @@ public class Neighbour implements Parcelable
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(avatarUrl);
-    }
+    }*/
 }

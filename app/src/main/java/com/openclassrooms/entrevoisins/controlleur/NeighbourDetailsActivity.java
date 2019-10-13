@@ -1,9 +1,13 @@
 package com.openclassrooms.entrevoisins.controlleur;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +21,8 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import java.io.Serializable;
 
+import butterknife.BindDrawable;
+
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.BUNDLE_NEIGHBOUR_SELECTED;
 
 public class NeighbourDetailsActivity extends AppCompatActivity
@@ -28,14 +34,30 @@ public class NeighbourDetailsActivity extends AppCompatActivity
     private FloatingActionButton mFavoriteButton;
     private TextView mNeighbourFacebook;
 
+    @BindDrawable(R.drawable.ic_star_border_white_24dp)
+    public Drawable mStarWithBorderWhite;
+
+    @BindDrawable(R.drawable.ic_star_yellow_24dp)
+    public Drawable mStarYellow;
+
     //Récupération du neighbour sélectionné
-   private Neighbour mNeighbour = getIntent().getParcelableExtra(BUNDLE_NEIGHBOUR_SELECTED);
+   private Neighbour mNeighbour;
+
+   private NeighbourApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_details);
+
+        mApiService = DI.getNeighbourApiService();
+
+        //Récupération de neighbour
+        if (getIntent() != null)
+            mNeighbour = (Neighbour) getIntent().getSerializableExtra(BUNDLE_NEIGHBOUR_SELECTED);
+        else
+            finish();
 
         //Référenciation
         mNeighbourAvatar = findViewById(R.id.neighbour_avatar_img);
@@ -56,5 +78,34 @@ public class NeighbourDetailsActivity extends AppCompatActivity
         //Activation du boutton retour
         mBackButton.setOnClickListener(v -> finish());
 
+        //Activation du boutton favori
+        onFavoriteButton();
+        /*mFavoriteButton.setOnClickListener(v -> {
+            if (mNeighbour.getIsFavorite() == false)
+            {
+                mNeighbour.setIsFavorite(true);
+                mFavoriteButton.setOnClickListener(view -> mFavoriteButton.setImageDrawable(mStarYellow));
+            }
+            else
+            {
+                mNeighbour.setIsFavorite(false);
+                mFavoriteButton.setOnClickListener(view -> mFavoriteButton.setImageDrawable(mStarWithBorderWhite));
+            }
+        });*/
+
+    }
+
+    private void onFavoriteButton()
+    {
+        if (mNeighbour.getIsFavorite())
+            mFavoriteButton.setImageDrawable(mStarWithBorderWhite);
+        else
+            mFavoriteButton.setImageDrawable(mStarYellow);
+
+        mFavoriteButton.setOnClickListener(v ->{
+            mApiService.toggleFavorite(mNeighbour);
+           mNeighbour.setIsFavorite(!mNeighbour.getIsFavorite());
+           onFavoriteButton();
+        });
     }
 }

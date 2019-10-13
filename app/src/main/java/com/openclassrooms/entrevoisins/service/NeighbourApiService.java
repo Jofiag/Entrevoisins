@@ -21,4 +21,11 @@ public interface NeighbourApiService {
      * @param neighbour
      */
     void deleteNeighbour(Neighbour neighbour);
+
+    /**
+     * Toggle the favorite value of a neighbour
+     *
+     * @param neighbour
+     */
+    void toggleFavorite(Neighbour neighbour);
 }
