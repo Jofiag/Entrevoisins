@@ -2,6 +2,7 @@ package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,7 +15,8 @@ public interface NeighbourApiService {
      * Get all my Neighbours
      * @return {@link List}
      */
-    List<Neighbour> getNeighbours();
+    ArrayList<Neighbour> getNeighbours();
+
 
     /**
      * Deletes a neighbour

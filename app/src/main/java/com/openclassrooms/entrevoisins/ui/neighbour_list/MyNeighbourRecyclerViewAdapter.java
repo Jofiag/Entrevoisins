@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,13 +12,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.controlleur.NeighbourDetailsActivity;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.StartActivityEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,18 +26,20 @@ import butterknife.ButterKnife;
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Neighbour> mNeighbours;
+    private final ArrayList<Neighbour> mNeighbours;
 
     public static final String BUNDLE_NEIGHBOUR_SELECTED = "neighbour";
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public static final int NEIGHBOUR_DETAILS_ACTIVITY_REQUEST_CODE = 2;
+
+    public MyNeighbourRecyclerViewAdapter(ArrayList<Neighbour> items) {
         mNeighbours = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_neighbour, parent, false);
+                .inflate(R.layout.item_recycler_neighbour, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,10 +60,12 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         });
 
         //Lancement de NeighbourDetailsActivity
-        holder.mNeighbourLayout.setOnClickListener(v -> {
-            Intent neighbourDetailsActivity = new Intent(holder.mNeighbourLayout.getContext(), NeighbourDetailsActivity.class);
-            neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, neighbour);
-            v.getContext().startActivity(neighbourDetailsActivity);
+        holder.mNeighbourLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                EventBus.getDefault().post(new StartActivityEvent(neighbour));
+            }
         });
     }
 

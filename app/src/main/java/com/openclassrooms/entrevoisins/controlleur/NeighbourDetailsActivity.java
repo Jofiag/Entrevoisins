@@ -1,13 +1,10 @@
 package com.openclassrooms.entrevoisins.controlleur;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,9 +14,6 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
-
-import java.io.Serializable;
 
 import butterknife.BindDrawable;
 
@@ -80,32 +74,31 @@ public class NeighbourDetailsActivity extends AppCompatActivity
 
         //Activation du boutton favori
         onFavoriteButton();
-        /*mFavoriteButton.setOnClickListener(v -> {
-            if (mNeighbour.getIsFavorite() == false)
-            {
-                mNeighbour.setIsFavorite(true);
-                mFavoriteButton.setOnClickListener(view -> mFavoriteButton.setImageDrawable(mStarYellow));
-            }
-            else
-            {
-                mNeighbour.setIsFavorite(false);
-                mFavoriteButton.setOnClickListener(view -> mFavoriteButton.setImageDrawable(mStarWithBorderWhite));
-            }
-        });*/
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        //Sauvegarde du Neighbour afin de le récupérer dans le ListNeighbour
+        Intent neighbourIntent = new Intent();
+        neighbourIntent.putExtra("neighbourUpdated", mNeighbour);
+        setResult(RESULT_OK, neighbourIntent);
     }
 
     private void onFavoriteButton()
     {
-        if (mNeighbour.getIsFavorite())
-            mFavoriteButton.setImageDrawable(mStarWithBorderWhite);
+        /*if (mNeighbour.getIsFavorite())
+            mFavoriteButton.setImageResource(R.drawable.ic_star_yellow_24dp);
         else
-            mFavoriteButton.setImageDrawable(mStarYellow);
+            mFavoriteButton.setImageResource(R.drawable.ic_star_border_white_24dp);*/
+        mFavoriteButton.setImageResource(mNeighbour.getIsFavorite() ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
 
-        mFavoriteButton.setOnClickListener(v ->{
-            mApiService.toggleFavorite(mNeighbour);
-           mNeighbour.setIsFavorite(!mNeighbour.getIsFavorite());
-           onFavoriteButton();
+        mFavoriteButton.setOnClickListener(v -> {
+            mApiService.toggleFavorite(mNeighbour);//Mise à jour de l'API
+            mNeighbour.setIsFavorite(!mNeighbour.getIsFavorite());
+            mFavoriteButton.setImageResource(mNeighbour.getIsFavorite() ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
         });
     }
 }
