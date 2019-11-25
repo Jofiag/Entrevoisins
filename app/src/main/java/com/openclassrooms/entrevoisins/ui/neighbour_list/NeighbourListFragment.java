@@ -68,9 +68,6 @@ public class NeighbourListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getNeighbourApiService();
-        mRecyclerView.findViewById(R.id.list_neighbours);
-
     }
 
     @Override
@@ -80,7 +77,9 @@ public class NeighbourListFragment extends Fragment {
         ButterKnife.bind(this, view);
         initFavoriteList();
         ArrayList<Neighbour> list = (ArrayList<Neighbour>) getArguments().getSerializable("list_of_neighbours");
-        mAdapter = new MyNeighbourRecyclerViewAdapter(list);
+        mApiService = DI.getNeighbourApiService();
+        mRecyclerView.findViewById(R.id.list_neighbours);
+        mAdapter = new MyNeighbourRecyclerViewAdapter(this, list);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -103,7 +102,6 @@ public class NeighbourListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -114,20 +112,19 @@ public class NeighbourListFragment extends Fragment {
 
     /**
      * Fired if the user clicks on a delete button
-     * @param event
+     * @param neighbour
      */
-    @Subscribe
-    public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
-        mNeighbours.remove(event.neighbour);
+    public void onDeleteNeighbour(Neighbour neighbour) {
+        mApiService.deleteNeighbour(neighbour);
+        mNeighbours.remove(neighbour);
         mAdapter.notifyDataSetChanged();
     }
 
-    @Subscribe
-    public void onStartActivity(StartActivityEvent event)
+
+    public void startDetailsActivity(Neighbour neighbour)
     {
         Intent neighbourDetailsActivity = new Intent(getActivity(), NeighbourDetailsActivity.class);
-        neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, event.neighbour);
+        neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, neighbour);
         getActivity().startActivityForResult(neighbourDetailsActivity, NEIGHBOUR_DETAILS_ACTIVITY_CODE);
     }
 }

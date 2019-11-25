@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +28,15 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final ArrayList<Neighbour> mNeighbours;
+    private NeighbourListFragment parentFragment;
 
     public static final String BUNDLE_NEIGHBOUR_SELECTED = "neighbour";
 
     public static final int NEIGHBOUR_DETAILS_ACTIVITY_REQUEST_CODE = 2;
 
-    public MyNeighbourRecyclerViewAdapter(ArrayList<Neighbour> items) {
+    public MyNeighbourRecyclerViewAdapter(NeighbourListFragment parentFragment, ArrayList<Neighbour> items) {
         mNeighbours = items;
+        this.parentFragment = parentFragment;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+                parentFragment.onDeleteNeighbour(neighbour);
             }
         });
 
@@ -64,7 +67,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             @Override
             public void onClick(View v)
             {
-                EventBus.getDefault().post(new StartActivityEvent(neighbour));
+                parentFragment.startDetailsActivity(neighbour);
             }
         });
     }
