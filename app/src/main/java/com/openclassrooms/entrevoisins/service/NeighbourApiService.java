@@ -17,12 +17,17 @@ public interface NeighbourApiService {
      */
     ArrayList<Neighbour> getNeighbours();
 
+    /**
+     * Get favorite neighbour
+     * @return
+     */
+    ArrayList<Neighbour> getFavoriteNeighbour();
 
     /**
      * Deletes a neighbour
      * @param neighbour
      */
-    void deleteNeighbour(Neighbour neighbour);
+    void deleteNeighbour(Neighbour neighbour, ArrayList<Neighbour> list);
 
     /**
      * Toggle the favorite value of a neighbour

@@ -21,20 +21,35 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         return neighbours;
     }
 
-    public List<Neighbour> getFavorites() {return neighbours;}
+    public ArrayList<Neighbour> getFavoriteNeighbour()
+    {
+        ArrayList<Neighbour> favoriteNeighbours = new ArrayList<>();
+
+        for (Neighbour n : neighbours)
+        {
+            if (n.getIsFavorite())
+                favoriteNeighbours.add(n);
+        }
+
+        return favoriteNeighbours;
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void deleteNeighbour(Neighbour neighbour) {
-        neighbours.remove(neighbour);
+    public void deleteNeighbour(Neighbour neighbour, ArrayList<Neighbour> list) {
+        list.remove(neighbour);
     }
 
     @Override
     public void toggleFavorite(Neighbour neighbour) {
-        if (neighbours.get(neighbours.indexOf(neighbour)).getIsFavorite()==false)
+        neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(!neighbour.getIsFavorite());
+
+        /*if (neighbours.get(neighbours.indexOf(neighbour)).getIsFavorite()==false)
             neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(true);
-        else neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(false);
+        else
+            neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(false);
+         */
     }
 }

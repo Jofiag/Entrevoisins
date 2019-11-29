@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,16 +13,12 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.controlleur.NeighbourDetailsActivity;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
-import com.openclassrooms.entrevoisins.events.StartActivityEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +52,32 @@ public class NeighbourListFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mApiService = DI.getNeighbourApiService();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
+        ButterKnife.bind(this, view);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        initFragment();
+        return view;
+    }
+
+    private void initFragment()
+    {
+        ArrayList<Neighbour> list = (ArrayList<Neighbour>) getArguments().getSerializable("list_of_neighbours");
+        mAdapter = new MyNeighbourRecyclerViewAdapter(this, list);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
     public void setNeighbours(ArrayList<Neighbour> neighbours)
     {
         mNeighbours.clear();
@@ -65,49 +86,19 @@ public class NeighbourListFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
-        ButterKnife.bind(this, view);
-        initFavoriteList();
-        ArrayList<Neighbour> list = (ArrayList<Neighbour>) getArguments().getSerializable("list_of_neighbours");
-        mApiService = DI.getNeighbourApiService();
-        mRecyclerView.findViewById(R.id.list_neighbours);
-        mAdapter = new MyNeighbourRecyclerViewAdapter(this, list);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-        return view;
-    }
-
     /**
      * Init the List of neighbours
      */
-    private void initFavoriteList() {
-        //mAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
-        //mRecyclerView.setAdapter(mAdapter);
-        for (Neighbour n : mNeighbours) {
-            if (n.getIsFavorite())
-                mFavoriteNeighbours.add(n);
-        }
-    }
 
     @Override
     public void onStart() {
         super.onStart();
+        initFragment();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -115,9 +106,8 @@ public class NeighbourListFragment extends Fragment {
      * @param neighbour
      */
     public void onDeleteNeighbour(Neighbour neighbour) {
-        mApiService.deleteNeighbour(neighbour);
-        mNeighbours.remove(neighbour);
-        mAdapter.notifyDataSetChanged();
+        mApiService.deleteNeighbour(neighbour, (ArrayList<Neighbour>) getArguments().getSerializable("list_of_neighbours"));
+        initFragment();
     }
 
 

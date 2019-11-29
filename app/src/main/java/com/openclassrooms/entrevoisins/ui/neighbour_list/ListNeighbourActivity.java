@@ -41,15 +41,18 @@ public class ListNeighbourActivity extends AppCompatActivity {
     private NeighbourListFragment mGeneralFragment;
     private NeighbourListFragment mFavoriteFragment;
 
+    ListNeighbourPagerAdapter mPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_neighbour);
+
         ButterKnife.bind(this);
 
         mApiService = DI.getNeighbourApiService();
         mNeighbours = mApiService.getNeighbours();
-        initFavoriteList();
+        mFavoriteNeighbours = mApiService.getFavoriteNeighbour();
 
         setupViewPager();
     }
@@ -89,6 +92,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     private void updateFavoriteList(Neighbour neighbour)
     {
+        //initFavoriteList();
         if (neighbour.getIsFavorite() && !mFavoriteNeighbours.contains(neighbour))
             mFavoriteNeighbours.add(neighbour);
         else if(!mNeighbourUpdated.getIsFavorite() && mFavoriteNeighbours.contains(neighbour))

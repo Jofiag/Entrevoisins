@@ -89,10 +89,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity
 
     private void onFavoriteButton()
     {
-        /*if (mNeighbour.getIsFavorite())
-            mFavoriteButton.setImageResource(R.drawable.ic_star_yellow_24dp);
-        else
-            mFavoriteButton.setImageResource(R.drawable.ic_star_border_white_24dp);*/
         mFavoriteButton.setImageResource(mNeighbour.getIsFavorite() ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
 
         mFavoriteButton.setOnClickListener(v -> {
