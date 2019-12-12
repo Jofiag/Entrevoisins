@@ -25,10 +25,6 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
-
-/**
- * Test class for list of neighbours
- */
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
 
@@ -47,9 +43,7 @@ public class NeighboursListTest {
         assertThat(mActivity, notNullValue());
     }
 
-    /**
-     * We ensure that our recyclerview is displaying at least on item
-     */
+
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
@@ -57,10 +51,7 @@ public class NeighboursListTest {
                 .check(matches(hasMinimumChildCount(1)));
     }
 
-    /**
-     * When we delete an item, the item is no more shown
-     * correction d'une erreur sur le test avec la methode 'allOf'
-     */
+
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
