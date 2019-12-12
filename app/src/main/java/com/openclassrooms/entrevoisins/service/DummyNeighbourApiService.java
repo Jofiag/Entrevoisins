@@ -1,6 +1,8 @@
 package com.openclassrooms.entrevoisins.service;
 
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ProfilActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,46 +12,50 @@ import java.util.List;
  */
 public class DummyNeighbourApiService implements  NeighbourApiService {
 
-    private ArrayList<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
+    private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
 
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ArrayList<Neighbour> getNeighbours() {
+    public List<Neighbour> getNeighbours() {
         return neighbours;
     }
 
-    public ArrayList<Neighbour> getFavoriteNeighbour()
-    {
-        ArrayList<Neighbour> favoriteNeighbours = new ArrayList<>();
 
-        for (Neighbour n : neighbours)
-        {
-            if (n.getIsFavorite())
-                favoriteNeighbours.add(n);
+    /**
+     * delocalisation de ma methode de creation de liste de favoris
+     * @return
+     */
+    @Override
+    public List<Neighbour> getFavorisNeighbours() {
+
+        List<Neighbour> favorisNeighbours = new ArrayList<>();
+
+        for (Neighbour liste : neighbours) {
+            if (liste.isFavoris()) {
+                favorisNeighbours.add(liste);
+            }
         }
 
-        return favoriteNeighbours;
+        return favorisNeighbours;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void deleteNeighbour(Neighbour neighbour, ArrayList<Neighbour> list) {
-        list.remove(neighbour);
+    public void deleteNeighbour(Neighbour neighbour) {
+        neighbours.remove(neighbour);
     }
 
+    /**
+     * methode de services pour changer le statut favoris
+     * @param neighbour
+     */
     @Override
-    public void toggleFavorite(Neighbour neighbour) {
-        neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(!neighbour.getIsFavorite());
-
-        /*if (neighbours.get(neighbours.indexOf(neighbour)).getIsFavorite()==false)
-            neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(true);
-        else
-            neighbours.get(neighbours.indexOf(neighbour)).setIsFavorite(false);
-         */
+    public void changeFavoris(Neighbour neighbour) {
+        neighbours.get(neighbours.indexOf(neighbour)).setFavoris(!neighbour.isFavoris());
     }
 }
