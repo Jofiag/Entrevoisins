@@ -2,9 +2,12 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +19,8 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +58,194 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mApiService = DI.getNeighbourApiService();
         mNeighbours = mApiService.getNeighbours();
         mFavoriteNeighbours = mApiService.getFavoriteNeighbour();
+        mPagerAdapter = new ListNeighbourPagerAdapter(new FragmentManager()
+        {
+            @NonNull
+            @Override
+            public FragmentTransaction beginTransaction()
+            {
+                return null;
+            }
+
+            @Override
+            public boolean executePendingTransactions()
+            {
+                return false;
+            }
+
+            @Nullable
+            @Override
+            public Fragment findFragmentById(int i)
+            {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public Fragment findFragmentByTag(@Nullable String s)
+            {
+                return null;
+            }
+
+            @Override
+            public void popBackStack()
+            {
+
+            }
+
+            @Override
+            public boolean popBackStackImmediate()
+            {
+                return false;
+            }
+
+            @Override
+            public void popBackStack(@Nullable String s, int i)
+            {
+
+            }
+
+            @Override
+            public boolean popBackStackImmediate(@Nullable String s, int i)
+            {
+                return false;
+            }
+
+            @Override
+            public void popBackStack(int i, int i1)
+            {
+
+            }
+
+            @Override
+            public boolean popBackStackImmediate(int i, int i1)
+            {
+                return false;
+            }
+
+            @Override
+            public int getBackStackEntryCount()
+            {
+                return 0;
+            }
+
+            @NonNull
+            @Override
+            public BackStackEntry getBackStackEntryAt(int i)
+            {
+                return null;
+            }
+
+            @Override
+            public void addOnBackStackChangedListener(@NonNull OnBackStackChangedListener onBackStackChangedListener)
+            {
+
+            }
+
+            @Override
+            public void removeOnBackStackChangedListener(@NonNull OnBackStackChangedListener onBackStackChangedListener)
+            {
+
+            }
+
+            @Override
+            public void putFragment(@NonNull Bundle bundle, @NonNull String s, @NonNull Fragment fragment)
+            {
+
+            }
+
+            @Nullable
+            @Override
+            public Fragment getFragment(@NonNull Bundle bundle, @NonNull String s)
+            {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public List<Fragment> getFragments()
+            {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public Fragment.SavedState saveFragmentInstanceState(Fragment fragment)
+            {
+                return null;
+            }
+
+            @Override
+            public boolean isDestroyed()
+            {
+                return false;
+            }
+
+            @Override
+            public void registerFragmentLifecycleCallbacks(@NonNull FragmentLifecycleCallbacks fragmentLifecycleCallbacks, boolean b)
+            {
+
+            }
+
+            @Override
+            public void unregisterFragmentLifecycleCallbacks(@NonNull FragmentLifecycleCallbacks fragmentLifecycleCallbacks)
+            {
+
+            }
+
+            @Nullable
+            @Override
+            public Fragment getPrimaryNavigationFragment()
+            {
+                return null;
+            }
+
+            @Override
+            public void dump(String s, FileDescriptor fileDescriptor, PrintWriter printWriter, String[] strings)
+            {
+
+            }
+
+            @Override
+            public boolean isStateSaved()
+            {
+                return false;
+            }
+        });
+        viewPager.setAdapter(mPagerAdapter);
 
         setupViewPager();
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int i, float v, int i1)
+            {
+
+            }
+
+            @Override
+            public void onPageSelected(int i)
+            {
+                NeighbourListFragment fragmentN = (NeighbourListFragment) mPagerAdapter.getItem(0);
+                NeighbourListFragment fragmentF = (NeighbourListFragment) mPagerAdapter.getItem(1);
+
+                fragmentN.updateData();
+                fragmentF.updateData();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i)
+            {
+
+            }
+        });
+
+    }
+    private void updateData()
+    {
+        mPagerAdapter.notifyDataSetChanged();
     }
 
 
@@ -108,5 +299,10 @@ public class ListNeighbourActivity extends AppCompatActivity {
             else if (mFavoriteNeighbours.contains(n) && !n.getIsFavorite())
                 mFavoriteNeighbours.remove(n);
         }
+    }
+
+    public void addOnPageListener()
+    {
+
     }
 }

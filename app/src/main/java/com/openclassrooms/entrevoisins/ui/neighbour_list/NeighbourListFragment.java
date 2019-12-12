@@ -56,6 +56,8 @@ public class NeighbourListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+        NeighbourListFragment fragmentList = new NeighbourListFragment();
+        mAdapter = new MyNeighbourRecyclerViewAdapter(fragmentList, mNeighbours);
     }
 
     @Override
@@ -97,6 +99,13 @@ public class NeighbourListFragment extends Fragment {
     }
 
     @Override
+    public void onResume()
+    {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
     }
@@ -116,5 +125,9 @@ public class NeighbourListFragment extends Fragment {
         Intent neighbourDetailsActivity = new Intent(getActivity(), NeighbourDetailsActivity.class);
         neighbourDetailsActivity.putExtra(BUNDLE_NEIGHBOUR_SELECTED, neighbour);
         getActivity().startActivityForResult(neighbourDetailsActivity, NEIGHBOUR_DETAILS_ACTIVITY_CODE);
+    }
+
+    public void updateData() {
+        mAdapter.notifyDataSetChanged();
     }
 }
