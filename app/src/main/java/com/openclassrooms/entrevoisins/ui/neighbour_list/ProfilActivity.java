@@ -87,8 +87,6 @@ public class ProfilActivity extends AppCompatActivity {
                     mApiService.changeFavoris(profil);
                     favoris_Button.setImageResource(R.drawable.ic_star_white_24dp);
                 }
-
-
             }
         });
     }

@@ -33,15 +33,9 @@ public class NeighbourFragment extends Fragment {
     private static final String ONGLET = "page";
 
 
-    /**
-     * Create and return a new instance
-     * @return @{@link NeighbourFragment}
-     * @param page
-     */
     public static NeighbourFragment newInstance(String page) {
         NeighbourFragment fragment = new NeighbourFragment();
 
-        /** nommer fragment ONGLET page **/
         Bundle args = new Bundle();
         args.putString(ONGLET, page);
         fragment.setArguments(args);
@@ -64,18 +58,13 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        /** recuperation du nom de l'onglet **/
         page = getArguments().getString(ONGLET);
 
         initList();
         return view;
     }
 
-    /**
-     * Init the List of neighbours
-     * utilisation de la methode de services getFavorisNeigbours
-     * pour la generation de liste de favoris a jours
-     */
+
     private void initList() {
 
         mNeighbours = mApiService.getNeighbours();
@@ -106,10 +95,7 @@ public class NeighbourFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    /**
-     * Fired if the user clicks on a delete button
-     * @param event
-     */
+
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
