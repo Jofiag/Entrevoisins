@@ -19,29 +19,31 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 public class ProfilActivity extends AppCompatActivity {
 
     private NeighbourApiService mApiService;
-    ImageView imgProfil;
-    TextView txtProfil;
-    TextView txtTitre;
-    TextView txtWeb;
-    TextView txtAdresse;
-    TextView txtTel;
-    ImageButton retour_Button;
-    FloatingActionButton favoris_Button;
-    Neighbour profil;
+    private ImageView imgProfil;
+    private TextView txtProfil;
+    private TextView txtTitre;
+    private TextView txtWeb;
+    private TextView txtAdresse;
+    private TextView txtTel;
+    private ImageButton retour_Button;
+    private FloatingActionButton favoris_Button;
+    private Neighbour profil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+
+        imgProfil = findViewById(R.id.imgProfil);
+        txtProfil = findViewById(R.id.txtProfil);
+        txtTitre = findViewById(R.id.txtTitre);
+        txtWeb = findViewById(R.id.txtWeb);
+        txtAdresse = findViewById(R.id.txtAdresse);
+        txtTel = findViewById(R.id.txtTel);
+        retour_Button = findViewById(R.id.retourButton);
+        favoris_Button = findViewById(R.id.favorisButton);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        imgProfil = (ImageView)findViewById(R.id.imgProfil);
-        txtProfil = (TextView)findViewById(R.id.txtProfil);
-        txtTitre = (TextView)findViewById(R.id.txtTitre);
-        txtWeb = (TextView)findViewById(R.id.txtWeb);
-        txtAdresse = (TextView) findViewById(R.id.txtAdresse);
-        txtTel = (TextView) findViewById(R.id.txtTel);
 
         /** recuperation de mon objet **/
         mApiService = DI.getNeighbourApiService();
@@ -54,7 +56,6 @@ public class ProfilActivity extends AppCompatActivity {
         txtWeb.setText(txtWeb.getText() + profil.getName());
 
 
-        retour_Button = (ImageButton)findViewById(R.id.retourButton);
         retour_Button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -63,8 +64,6 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });
 
-
-        favoris_Button = (FloatingActionButton)findViewById(R.id.favorisButton);
         if (profil.isFavoris() == false){
             favoris_Button.setImageResource(R.drawable.ic_star_white_24dp);
         }
@@ -78,7 +77,6 @@ public class ProfilActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-
                 if (profil.isFavoris() == false){
                     mApiService.changeFavoris(profil);
                     favoris_Button.setImageResource(R.drawable.ic_star_gold_24dp);
