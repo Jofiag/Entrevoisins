@@ -7,14 +7,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
-    public ListNeighbourPagerAdapter(FragmentManager fm) {
+    ListNeighbourPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     /**
      * getItem is called to instantiate the fragment for the given page.
-     * @param page
-     * @return
+     * @param page position
+     * @return instance
      */
     @Override
     public Fragment getItem(int page) {
@@ -26,7 +26,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * get the number of pages
-     * @return
+     * @return number of pages
      */
 
     @Override

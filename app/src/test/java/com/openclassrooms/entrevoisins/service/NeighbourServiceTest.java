@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.List;
+import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -33,7 +33,7 @@ public class NeighbourServiceTest {
     public void getNeighboursWithSuccess() {
         List<Neighbour> neighbours = service.getNeighbours();
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
-        assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
+        assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(Objects.requireNonNull(expectedNeighbours.toArray())));
     }
 
     @Test
@@ -48,5 +48,16 @@ public class NeighbourServiceTest {
         List<Neighbour> neighbours = service.getNeighbours();
         neighbours.get(0).setFavoris(true);
         assertTrue(service.getNeighbours().get(0).isFavoris());
+    }
+
+    @Test
+    public void removeFavoriteSuccess()
+    {
+        Neighbour neighbour = service.getNeighbours().get(0);
+        neighbour.setFavoris(true);
+        assertTrue(service.getFavorisNeighbours().contains(neighbour));
+
+        neighbour.setFavoris(false);
+        assertFalse(service.getFavorisNeighbours().contains(neighbour));
     }
 }

@@ -32,23 +32,18 @@ import static org.hamcrest.core.IsNull.notNullValue;
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
 
-    // This is fixed
-    private static int ITEMS_COUNT = 12;
-
-    private ListNeighbourActivity mActivity;
-
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule(ListNeighbourActivity.class);
+            new ActivityTestRule<>(ListNeighbourActivity.class);
 
     @Before
     public void setUp() {
-        mActivity = mActivityRule.getActivity();
-        assertThat(mActivity, notNullValue());
+        ListNeighbourActivity activity = mActivityRule.getActivity();
+        assertThat(activity, notNullValue());
     }
 
     /**
-     * We ensure that our recyclerview is displaying at least on item
+     * test vérifiant que la liste des voisins non favoris est bien affichée
      */
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
@@ -58,17 +53,19 @@ public class NeighboursListTest {
     }
 
     /**
-     * When we delete an item, the item is no more shown
-     * correction d'une erreur sur le test avec la methode 'allOf'
+     * test vérifiant qu’au clic sur le bouton de suppression, la liste d’utilisateurs
+     * compte bien un utilisateur en moins
      */
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
+        // This is fixed
+        int ITEMS_COUNT = 12;
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
+        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT -1));
     }
 }

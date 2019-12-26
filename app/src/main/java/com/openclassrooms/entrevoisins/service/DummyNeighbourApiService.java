@@ -1,8 +1,6 @@
 package com.openclassrooms.entrevoisins.service;
 
-import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ProfilActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * delocalisation de ma methode de creation de liste de favoris
-     * @return
+     * @return favoriteNeighbour
      */
     @Override
     public List<Neighbour> getFavorisNeighbours() {
@@ -52,7 +50,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * methode de services pour changer le statut favoris
-     * @param neighbour
+     * @param neighbour to update
      */
     @Override
     public void changeFavoris(Neighbour neighbour) {

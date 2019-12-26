@@ -6,10 +6,6 @@ import android.os.Parcelable;
 import java.util.Objects;
 
 /**
- * Model object representing a Neighbour
- */
-
-/**
  * l'objet implemente parcelable pour me permettre de le transmettre
  * via un intente entre mes activity
  */
@@ -30,10 +26,10 @@ public class Neighbour implements Parcelable {
 
     /**
      * Constructor
-     * @param id
-     * @param name
-     * @param avatarUrl
-     * @param favoris
+     * @param id of neighbour
+     * @param name of neighbour
+     * @param avatarUrl of neighbour
+     * @param favoris of neighbour
      */
     public Neighbour(Integer id, String name, String avatarUrl, boolean favoris) {
         this.id = id;
@@ -54,17 +50,11 @@ public class Neighbour implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public boolean isFavoris() {
         return favoris;
