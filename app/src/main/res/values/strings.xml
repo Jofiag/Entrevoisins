@@ -4,8 +4,4 @@
     <string name="tab_favorites_title">Favorites</string>
     <string name="title_activity_profil_neighbour">Profil_Neighbour_Activity</string>
     <string name="title_activity_profil">Profil</string>
-    <string name="about_neighbour">Bonjour, je souhaite faire de la marche nordique. Je recherche une ou plusieurs personne susceptible de m\'accompagner! J\'aime faire des blagues et j\'aime faire du sport évidemment.</string>
-    <string name="phone_number">+33 6 86 57 90 14</string>
-    <string name="facebook_profile">http://www.profile.site.fr/</string>
-    <string name="text_viewititle">A propos de moi</string>
 </resources>

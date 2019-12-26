@@ -25,19 +25,31 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
+
+/**
+ * Test class for list of neighbours
+ */
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
 
+    // This is fixed
+    private static int ITEMS_COUNT = 12;
+
+    private ListNeighbourActivity mActivity;
+
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule<>(ListNeighbourActivity.class);
+            new ActivityTestRule(ListNeighbourActivity.class);
 
     @Before
     public void setUp() {
-        ListNeighbourActivity activity = mActivityRule.getActivity();
-        assertThat(activity, notNullValue());
+        mActivity = mActivityRule.getActivity();
+        assertThat(mActivity, notNullValue());
     }
 
+    /**
+     * We ensure that our recyclerview is displaying at least on item
+     */
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
@@ -45,16 +57,18 @@ public class NeighboursListTest {
                 .check(matches(hasMinimumChildCount(1)));
     }
 
+    /**
+     * When we delete an item, the item is no more shown
+     * correction d'une erreur sur le test avec la methode 'allOf'
+     */
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
-        // This is fixed
-        int ITEMS_COUNT = 12;
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT -1));
+        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
     }
 }

@@ -1,6 +1,8 @@
 package com.openclassrooms.entrevoisins.service;
 
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ProfilActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +26,20 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * delocalisation de ma methode de creation de liste de favoris
+     * @return
      */
     @Override
-    public List<Neighbour> getFavoriteNeighbours() {
+    public List<Neighbour> getFavorisNeighbours() {
 
-        List<Neighbour> favoriteNeighbours = new ArrayList<>();
+        List<Neighbour> favorisNeighbours = new ArrayList<>();
 
-        for (Neighbour list : neighbours) {
-            if (list.isFavorite()) {
-                favoriteNeighbours.add(list);
+        for (Neighbour liste : neighbours) {
+            if (liste.isFavoris()) {
+                favorisNeighbours.add(liste);
             }
         }
 
-        return favoriteNeighbours;
+        return favorisNeighbours;
     }
 
     /**
@@ -49,9 +52,10 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * methode de services pour changer le statut favoris
+     * @param neighbour
      */
     @Override
-    public void changeFavorite(Neighbour neighbour) {
-        neighbours.get(neighbours.indexOf(neighbour)).setFavorite(!neighbour.isFavorite());
+    public void changeFavoris(Neighbour neighbour) {
+        neighbours.get(neighbours.indexOf(neighbour)).setFavoris(!neighbour.isFavoris());
     }
 }

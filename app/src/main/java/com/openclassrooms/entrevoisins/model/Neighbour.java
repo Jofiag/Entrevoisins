@@ -9,6 +9,10 @@ import java.util.Objects;
  * Model object representing a Neighbour
  */
 
+/**
+ * l'objet implemente parcelable pour me permettre de le transmettre
+ * via un intente entre mes activity
+ */
 public class Neighbour implements Parcelable {
 
     /** Identifier */
@@ -20,22 +24,22 @@ public class Neighbour implements Parcelable {
     /** Avatar */
     private String avatarUrl;
 
-    /** favorite **/
+    /** favoris **/
 
-    private boolean favorite;
+    private boolean favoris;
 
     /**
      * Constructor
-     * @param id neighbour id
-     * @param name neighbour name
-     * @param avatarUrl neighbour url
-     * @param favorite neighbour is favorite or not
+     * @param id
+     * @param name
+     * @param avatarUrl
+     * @param favoris
      */
-    public Neighbour(Integer id, String name, String avatarUrl, boolean favorite) {
+    public Neighbour(Integer id, String name, String avatarUrl, boolean favoris) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
-        this.favorite = favorite;
+        this.favoris = favoris;
     }
 
     public Integer getId() {
@@ -50,17 +54,24 @@ public class Neighbour implements Parcelable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-
-    public boolean isFavorite() {
-        return favorite;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
+    public boolean isFavoris() {
+        return favoris;
+    }
+
+    public void setFavoris(boolean favoris) {
+        this.favoris = favoris;
     }
 
 
@@ -86,7 +97,7 @@ public class Neighbour implements Parcelable {
         id = in.readInt();
         name = in.readString();
         avatarUrl = in.readString();
-        favorite = in.readByte() != 0;
+        favoris = in.readByte() != 0;
     }
 
     @Override
@@ -105,6 +116,6 @@ public class Neighbour implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(avatarUrl);
-        dest.writeByte((byte) (favorite ? 1 : 0));
+        dest.writeByte((byte) (favoris ? 1 : 0));
     }
 }
