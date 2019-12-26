@@ -27,7 +27,6 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
-
     // This is fixed
     private static int ITEMS_COUNT = 12;
 
@@ -43,14 +42,12 @@ public class NeighboursListTest {
         assertThat(mActivity, notNullValue());
     }
 
-
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
         // First scroll to the position that needs to be matched and click on it.
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .check(matches(hasMinimumChildCount(1)));
     }
-
 
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {

@@ -1,7 +1,6 @@
 package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ProfilActivity;
 
 import java.util.List;
 
@@ -19,9 +18,9 @@ public interface NeighbourApiService {
     List<Neighbour> getNeighbours();
 
     /**
-     * Get all Favoris Neighbours
+     * Get all Favorite Neighbours
      */
-    List<Neighbour> getFavorisNeighbours();
+    List<Neighbour> getFavoriteNeighbours();
 
     /**
      * Deletes a neighbour
@@ -33,5 +32,5 @@ public interface NeighbourApiService {
      * change favoris statut
      * @param neighbour
      */
-    void changeFavoris (Neighbour neighbour);
+    void changeFavorite(Neighbour neighbour);
 }
