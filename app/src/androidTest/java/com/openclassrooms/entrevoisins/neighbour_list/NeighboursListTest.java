@@ -27,19 +27,15 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
-    // This is fixed
-    private static int ITEMS_COUNT = 12;
-
-    private ListNeighbourActivity mActivity;
 
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule(ListNeighbourActivity.class);
+            new ActivityTestRule<>(ListNeighbourActivity.class);
 
     @Before
     public void setUp() {
-        mActivity = mActivityRule.getActivity();
-        assertThat(mActivity, notNullValue());
+        ListNeighbourActivity activity = mActivityRule.getActivity();
+        assertThat(activity, notNullValue());
     }
 
     @Test
@@ -52,11 +48,13 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
+        // This is fixed
+        int ITEMS_COUNT = 12;
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
-        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
+        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT -1));
     }
 }

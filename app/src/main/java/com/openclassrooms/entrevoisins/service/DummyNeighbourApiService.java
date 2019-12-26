@@ -24,7 +24,6 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * delocalisation de ma methode de creation de liste de favoris
-     * @return
      */
     @Override
     public List<Neighbour> getFavoriteNeighbours() {
@@ -32,7 +31,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         List<Neighbour> favoriteNeighbours = new ArrayList<>();
 
         for (Neighbour list : neighbours) {
-            if (list.isFavoris()) {
+            if (list.isFavorite()) {
                 favoriteNeighbours.add(list);
             }
         }
@@ -50,10 +49,9 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     /**
      * methode de services pour changer le statut favoris
-     * @param neighbour
      */
     @Override
     public void changeFavorite(Neighbour neighbour) {
-        neighbours.get(neighbours.indexOf(neighbour)).setFavoris(!neighbour.isFavoris());
+        neighbours.get(neighbours.indexOf(neighbour)).setFavorite(!neighbour.isFavorite());
     }
 }

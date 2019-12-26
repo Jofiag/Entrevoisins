@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setFavoriteButtonImage()
     {
-        if (!profile.isFavoris())
+        if (!profile.isFavorite())
             putFavoriteButtonInWhite();
         else
             putFavoriteButtonInYellow();
@@ -89,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void favoriteButtonListener()
     {
         favoriteButton.setOnClickListener(v -> {
-            if (!profile.isFavoris()){
+            if (!profile.isFavorite()){
                 mApiService.changeFavorite(profile);
                 putFavoriteButtonInYellow();
             }

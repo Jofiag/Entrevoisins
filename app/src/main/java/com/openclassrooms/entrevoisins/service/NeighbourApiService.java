@@ -24,13 +24,11 @@ public interface NeighbourApiService {
 
     /**
      * Deletes a neighbour
-     * @param neighbour
      */
     void deleteNeighbour(Neighbour neighbour);
 
     /**
      * change favoris statut
-     * @param neighbour
      */
     void changeFavorite(Neighbour neighbour);
 }
