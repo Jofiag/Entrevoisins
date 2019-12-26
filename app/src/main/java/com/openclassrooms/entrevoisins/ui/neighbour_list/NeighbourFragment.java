@@ -22,6 +22,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 import java.util.Objects;
 
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourPagerAdapter.FAVORITE_PAGE;
+
 
 public class NeighbourFragment extends Fragment
 {
@@ -85,7 +87,7 @@ public class NeighbourFragment extends Fragment
 
         List<Neighbour> favorisNeigbours = mApiService.getFavorisNeighbours();
 
-        if (page.equals("favoris"))
+        if (page.equals(FAVORITE_PAGE))
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(favorisNeigbours));
         else
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(neighbours));

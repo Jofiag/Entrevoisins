@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
+    static final String EXTRA_KEY = "profile";
     private final List<Neighbour> mNeighbours;
 
     MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
@@ -55,7 +56,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         holder.caseProfil.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ProfilActivity.class);
-            intent.putExtra("profil", neighbour);
+            intent.putExtra(EXTRA_KEY, neighbour);
             v.getContext().startActivity(intent);
         });
     }

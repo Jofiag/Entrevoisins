@@ -14,6 +14,8 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_KEY;
+
 
 public class ProfilActivity extends AppCompatActivity {
 
@@ -60,7 +62,7 @@ public class ProfilActivity extends AppCompatActivity {
 
     private void setProfileDetails()
     {
-        profil = getIntent().getParcelableExtra("profil");
+        profil = getIntent().getParcelableExtra(EXTRA_KEY);
         Glide.with(this).load(profil.getAvatarUrl()).into(imgProfil);
         txtProfil.setText(profil.getName());
         txtTitre.setText(profil.getName());
