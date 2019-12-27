@@ -95,26 +95,6 @@ public class NeighbourFragment extends Fragment
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(neighbours));
     }
 
-    /*private void updateFavoriteList()
-    {
-        if(page.equals(FAVORITE_PAGE))
-        {
-            List<Neighbour> favorisNeigbours = mApiService.getFavorisNeighbours();
-            for (Neighbour neighbour : favorisNeigbours)
-            {
-                if (!neighbour.isFavoris())
-                {
-                    favorisNeigbours.remove(neighbour);
-                }
-                mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(favorisNeigbours));
-
-
-            }
-
-        }
-    }*/
-
-
     @Override
     public void onStart()
     {
@@ -149,6 +129,7 @@ public class NeighbourFragment extends Fragment
     @Subscribe
     public void updateFavoriteList(UpdateFavoriteListEvent event)
     {
+        mApiService.updateFavoriteNeighbours(event.neighbour);
         initList();
     }
 }

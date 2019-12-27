@@ -33,4 +33,6 @@ public interface NeighbourApiService {
      * @param neighbour neighbour to add or remove from the favorite liste
      */
     void changeFavoris (Neighbour neighbour);
+
+    void updateFavoriteNeighbours(Neighbour neighbour);
 }

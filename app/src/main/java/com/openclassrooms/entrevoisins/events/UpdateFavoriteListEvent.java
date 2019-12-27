@@ -4,10 +4,10 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 
 public class UpdateFavoriteListEvent
 {
-    private  Neighbour mNeighbour;
+    public Neighbour neighbour;
 
     public UpdateFavoriteListEvent(Neighbour neighbour)
     {
-        mNeighbour = neighbour;
+        this.neighbour = neighbour;
     }
 }
